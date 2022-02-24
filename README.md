@@ -1,4 +1,4 @@
 # fp-ds
 
-Work-in-progress exercises for Osaki's *Purely Functional Data Structures*.
+Work-in-progress exercises for Okasaki's *Purely Functional Data Structures*.
 
