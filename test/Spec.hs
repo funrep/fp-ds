@@ -1,8 +1,10 @@
 import Test.Tasty
-import qualified TreeSpec as TreeSpec
-import qualified HeapSpec as HeapSpec
+import qualified TreeSpec
+import qualified TreeHeapSpec
+import qualified BinHeapSpec
 
 main = defaultMain $ testGroup "tests" 
   [ TreeSpec.tests
-  , HeapSpec.tests
+  , TreeHeapSpec.tests
+  , BinHeapSpec.tests
   ]

@@ -9,7 +9,7 @@ import Tree
 import qualified ADT.Set as S
 import qualified ADT.Map as M
 
-tests = testGroup "Set and map tests" 
+tests = testGroup "Set and map tests with trees"
   [ testProperty "S.insert n . S.insert n == S.insert n" $
       \s n -> S.insert (n :: Int) (S.insert (n :: Int) (s :: Tree Int)) == S.insert (n :: Int) (s :: Tree Int)
   , testProperty "S.member n . S.insert n == True" $

@@ -31,9 +31,9 @@ library
       ADT.Set
       ADT.Stack
       BinHeap
-      Heap
       List
       Tree
+      TreeHeap
   other-modules:
       Paths_fp_ds
   hs-source-dirs:
@@ -47,7 +47,8 @@ test-suite fp-ds-test
   type: exitcode-stdio-1.0
   main-is: Spec.hs
   other-modules:
-      HeapSpec
+      BinHeapSpec
+      TreeHeapSpec
       TreeSpec
       Paths_fp_ds
   hs-source-dirs:
