@@ -1,7 +1,23 @@
+{-# LANGUAGE FlexibleInstances #-}
 module Heap where
+
+import Test.QuickCheck
+import ADT.Queue
+
+instance Queue Heap where
+  empty = E
+  snoc = flip insert
+  head = findMin
+  tail = deleteMin
 
 data Heap a = E | T Int a (Heap a) (Heap a)
   deriving (Show, Eq)
+
+instance Arbitrary (Heap Int) where
+  arbitrary = arbHeap 0 1000
+
+arbHeap :: Int -> Int -> Gen (Heap Int)
+arbHeap lo hi = fromList <$> listOf (choose (lo, hi))
 
 empty :: Heap a
 empty = E
