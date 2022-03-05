@@ -25,6 +25,12 @@ source-repository head
 
 library
   exposed-modules:
+      ADT.Heap
+      ADT.Map
+      ADT.Queue
+      ADT.Set
+      ADT.Stack
+      BinHeap
       Heap
       List
       Tree

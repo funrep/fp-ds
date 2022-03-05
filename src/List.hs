@@ -1,35 +1,40 @@
 module List where
 
-data Stack a = Nil | Cons a (Stack a)
+import ADT.Stack
+
+instance Stack List where
+  empty = Nil
+  cons = Cons
+  head = headS
+  tail = tailS
+
+data List a = Nil | Cons a (List a)
   deriving (Show, Eq)
 
-empty :: Stack a
+empty :: List a
 empty = Nil
 
-isEmpty :: Stack a -> Bool
+isEmpty :: List a -> Bool
 isEmpty Nil = True
 isEmpty _ = False
 
-cons :: a -> Stack a -> Stack a
+cons :: a -> List a -> List a
 cons = Cons
 
-headS :: Stack a -> Maybe a
+headS :: List a -> Maybe a
 headS Nil = Nothing
 headS (Cons a _) = Just a
 
-tailS :: Stack a -> Stack a
+tailS :: List a -> List a
 tailS Nil = Nil
 tailS (Cons _ t) = t
 
-concatS :: Stack a -> Stack a -> Stack a
+concatS :: List a -> List a -> List a
 concatS Nil ys = ys
 concatS (Cons x xs) ys = Cons x $ concatS xs ys
 
 suffixes :: [a] -> [[a]]
-suffixes [] = []
+suffixes [] = [[]]
 suffixes l@(_:xs) = l : suffixes xs
 -- O(n) time from iterating through the list once
 -- O(n) space from every element sublist sharing memory with the initial list
-
-
-

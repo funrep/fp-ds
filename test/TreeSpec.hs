@@ -3,19 +3,19 @@ module TreeSpec where
 import Test.Tasty
 import Test.Tasty.QuickCheck
 import Test.QuickCheck
+import Data.Maybe
 
 import Tree
+import qualified ADT.Set as S
+import qualified ADT.Map as M
 
-tests = testGroup "Unit tests" 
-  [ testProperty "insert n . insert n == insert n" $
-      \s n -> insert (n :: Int) (insert (n :: Int) (s :: Set Int)) == insert (n :: Int) (s :: Set Int)
-  , testProperty "member n . insert n == True" $
-      \s n -> member (n :: Int) (insert (n :: Int) (s :: Set Int))
-  -- , testProperty "height . complete k d == d" $
-  --   \k d -> 
-  --     if (d :: Int) < 0
-  --       then True
-  --       else height (complete (k :: Int) (d :: Int)) == (d :: Int)
-  -- , testProperty "size . balanced k m == m" $
-  --     \k m -> fmap (\n -> size (balanced (k :: Int) n) == n) (m :: Positive m) == Positive True
+tests = testGroup "Set and map tests" 
+  [ testProperty "S.insert n . S.insert n == S.insert n" $
+      \s n -> S.insert (n :: Int) (S.insert (n :: Int) (s :: Tree Int)) == S.insert (n :: Int) (s :: Tree Int)
+  , testProperty "S.member n . S.insert n == True" $
+      \s n -> S.member (n :: Int) (S.insert (n :: Int) (s :: Tree Int))
+  , testProperty "M.insert k n . M.insert k n == M.insert k n" $
+      \m k n -> M.insert (k :: Int) (n :: Int) (M.insert (k :: Int) (n :: Int) (m :: TreeMap Int Int)) == M.insert (k :: Int) (n :: Int) (m :: TreeMap Int Int)
+  , testProperty "isJust $ M.lookup k $ M.insert k n == True" $
+      \m k n -> isJust $ M.lookup (k :: Int) $ M.insert (k :: Int) (n :: Int) (m :: TreeMap Int Int)
   ]
