@@ -59,22 +59,42 @@ emptyT = Leaf
 --   | a > x = Node t1 x (insert a t2)
 --   | otherwise = t
 
+-- insertT :: Ord a => a -> Tree a -> Tree a
+-- insertT a tree = snd $ f a tree
+--   where
+--     f a Leaf = (True, Node Leaf a Leaf)
+--     f a node@(Node t1 x t2)
+--       | a < x     =
+--         let (b, t1') = f a t1
+--         in if b
+--           then (True, Node t1' a t2)
+--           else (False, node)
+--       | a > x     = 
+--         let (b, t2') = f a t2
+--         in if b
+--           then (True, Node t1 a t2')
+--           else (False, node)
+--       | otherwise = (False, node) 
+
 insertT :: Ord a => a -> Tree a -> Tree a
 insertT a Leaf = Node Leaf a Leaf
-insertT a t@(Node t1 x t2)
-  | a < x = f a t t1
-  | a > x = f a t t2
-  | otherwise = t
+insertT a t@(Node _ c _) = snd $ f c a t
   where
-    f a Leaf Leaf = Node Leaf a Leaf
-    f a p@(Node t1 x t2) Leaf
-      | a < x = Node (Node Leaf a Leaf) x t2
-      | a > x = Node t1 x (Node Leaf a Leaf)
-      | otherwise = Leaf
-    f a p t@(Node t1 x t2)
-      | a < x = f a t t1
-      | a > x = f a t t2
-      | otherwise = p
+    f c a Leaf =
+      if c == a
+        then (False, Leaf)
+        else (True, Node Leaf a Leaf)
+    f c a t@(Node t1 x t2)
+      | a <= x     =
+        let (b, t1') = f x a t1
+        in if b
+          then (True, Node t1' a t2)
+          else (False, t)
+      | otherwise     = 
+        let (b, t2') = f c a t2
+        in if b
+          then (True, Node t1 a t2')
+          else (False, t)
 
 -- member :: Ord a => a -> Tree a -> Bool
 -- member a Leaf = False
